@@ -1,0 +1,35 @@
+{
+  "name": "validate",
+  "version": "1.0.0",
+  "description": "Validation lib in a functional fashion",
+  "main": "index.js",
+  "author": "Alejandro Corsino",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alecorsino/validate/issues"
+  },
+  "homepage": "https://github.com/alecorsino/validate#readme",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alecorsino/validate.git"
+  },
+  "keywords": [
+    "data",
+    "validation"
+  ],
+  "peerDependencies": {},
+  "dependencies": {
+    "ramda": "^0.26.1"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "rollup": "^0.67.4",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^3.4.0"
+  }
+}
