@@ -2,7 +2,7 @@
   "name": "validate",
   "version": "1.0.0",
   "description": "Validation lib in a functional fashion",
-  "main": "index.js",
+  "main": "lib/index",
   "author": "Alejandro Corsino",
   "license": "MIT",
   "bugs": {

@@ -4,6 +4,6 @@
  *
  */
 
-export const isNumber = value => typeof value === "number";
+export const isNumber = value => typeof value === 'number';
 
 export const gt0 = value => isNumber(value) && value > 0;

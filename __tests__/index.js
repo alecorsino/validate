@@ -1,13 +1,8 @@
-const {
-  initValue,
-  validateFactory,
-  compose,
-  composeValidations
-} = require("../lib/index");
+const { initValue, validateFactory, compose, composeValidations } = require('../lib/index');
 
-test("Validation Factory", () => {
+test('Validation Factory', () => {
   let mockValidationFun = val => false;
-  const MOCK_ERROR_MSG = "MOCK: ALWAYS FAIL";
+  const MOCK_ERROR_MSG = 'MOCK: ALWAYS FAIL';
 
   const vf = validateFactory(mockValidationFun, MOCK_ERROR_MSG);
 
@@ -19,7 +14,7 @@ test("Validation Factory", () => {
   expect(result.errors).toEqual(expect.arrayContaining([MOCK_ERROR_MSG]));
 });
 
-test("Compose: should compose functions right-to-left f(g(h(...fns(x)))", () => {
+test('Compose: should compose functions right-to-left f(g(h(...fns(x)))', () => {
   let mockFun1 = val => val + 1;
   let mockFun2 = val => val + 2;
   let mockFun3 = val => val + 3;
@@ -29,14 +24,14 @@ test("Compose: should compose functions right-to-left f(g(h(...fns(x)))", () => 
     mockFun1
   );
 
-  expect(composed("")).toBe("123");
+  expect(composed('')).toBe('123');
 });
 
-test("composeValidations: Compose With initValue Wrapper", () => {
+test('composeValidations: Compose With initValue Wrapper', () => {
   let mockFun1 = val => val;
   const composedWtihInit = composeValidations(mockFun1);
 
-  const MY_VALUE = "My Value";
+  const MY_VALUE = 'My Value';
   expect(composedWtihInit(MY_VALUE)).toEqual({
     errors: [],
     pass: true,
