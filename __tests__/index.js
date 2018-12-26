@@ -1,5 +1,9 @@
-const { initValue, validateFactory, gt0, isNumber } = require("../lib/index");
-const { compose } = require("ramda");
+const {
+  initValue,
+  validateFactory,
+  compose,
+  composeValidations
+} = require("../lib/index");
 
 test("Validation Factory", () => {
   let mockValidationFun = val => false;
@@ -15,40 +19,27 @@ test("Validation Factory", () => {
   expect(result.errors).toEqual(expect.arrayContaining([MOCK_ERROR_MSG]));
 });
 
-test("Greater than zero Validation", () => {
-  const gt0Validation = validateFactory(gt0, "Not greater than zero");
+test("Compose: should compose functions right-to-left f(g(h(...fns(x)))", () => {
+  let mockFun1 = val => val + 1;
+  let mockFun2 = val => val + 2;
+  let mockFun3 = val => val + 3;
+  const composed = compose(
+    mockFun3,
+    mockFun2,
+    mockFun1
+  );
 
-  const value = 0;
-  let valueObj = initValue(value); // { value: val, pass: true, errors: [] }
-
-  let expectedValueObj = {
-    value: value,
-    pass: false,
-    errors: ["Not greater than zero"]
-  };
-  let result = gt0Validation(valueObj);
-  expect(result).toEqual(expectedValueObj);
+  expect(composed("")).toBe("123");
 });
 
-// test("Initial tests TODO: add proper test", () => {
-//   const gt0Validation = validateFactory(gt0, "Not greater than zero");
-//   const isNumberValidation = validateFactory(isNumber, "Not a Number");
+test("composeValidations: Compose With initValue Wrapper", () => {
+  let mockFun1 = val => val;
+  const composedWtihInit = composeValidations(mockFun1);
 
-//   const isNumberGreaterThanZero = compose(
-//     isNumberValidation,
-//     gt0Validation
-//   );
-
-//   // isNumberGreaterThanZero(initValue(0));
-
-//   const value = 0;
-//   let valueObj = initValue(value); // { value: val, pass: true, errors: [] }
-
-//   let expectedValueObj = {
-//     value: value,
-//     pass: false,
-//     errors: ["Not greater than zero"]
-//   };
-//   expect(isNumberGreaterThanZero(valueObj)).toEqual(expectedValueObj);
-//   ``;
-// });
+  const MY_VALUE = "My Value";
+  expect(composedWtihInit(MY_VALUE)).toEqual({
+    errors: [],
+    pass: true,
+    value: MY_VALUE
+  });
+});

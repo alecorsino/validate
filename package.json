@@ -24,9 +24,7 @@
     "validation"
   ],
   "peerDependencies": {},
-  "dependencies": {
-    "ramda": "^0.26.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "jest": "^23.6.0",
     "rollup": "^0.67.4",
