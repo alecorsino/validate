@@ -1,18 +1,16 @@
-import { compose } from "ramda";
+export * from "./validations";
 
-const gt0 = acc => {
-  if (acc.value < 1) {
-    acc = validationError(acc, "Not greater than zero");
-  }
-  return acc;
-};
-const isNumber = acc => {
-  if (typeof acc.value !== "number") {
-    acc = validationError(acc, "Not a Number");
-  }
+export function validateFactory(validationFunction, validatioMessage) {
+  if (typeof validationFunction != "function")
+    throw Error("Factory needs a function");
 
-  return acc;
-};
+  return function validate(acc) {
+    if (!validationFunction(acc.value)) {
+      acc = validationError(acc, validatioMessage);
+    }
+    return acc;
+  };
+}
 
 const validationError = (acc, err_str) => {
   const errors = [...acc.errors, err_str];
@@ -23,10 +21,3 @@ const validationError = (acc, err_str) => {
   };
 };
 export const initValue = val => ({ value: val, pass: true, errors: [] });
-
-export const isNumberGreaterThanZero = compose(
-  isNumber,
-  gt0
-);
-
-// isNumberGreaterThanZero(initValue(0));
